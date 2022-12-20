@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="add/">Добавить</a>
+    {% for film in films %}
+    <div class="film">
+        <div class="film__info">
+            <h2>{{ film.name }}</h2>
+            {{ film.category }}
+            {{ film.release_date }}
+            {{ film.actors }}
+            {{ film.show_date }}
+        </div>
+        <div class="film__links">
+            <a href="edit/{{ film.pk }}/">Редактировать</a>
+            <a href="delete/{{ film.pk }}/">Удалить</a>
+        </div>
+    </div>
+    {% endfor %}
+
+    <style>
+        body {
+            background-color: white;
+        }
+    </style>
+</body>
+</html>
