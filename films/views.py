@@ -5,7 +5,7 @@ from . import models, forms
 
 
 def index(request):
-    films = models.Film.objects.all()
+    films = models.Films.objects.all()
     
     return render(request, 'films/index.html', context={'films': films})
 
@@ -22,7 +22,7 @@ class AddView(View):
         if not form.is_valid():
             return self.get(request)
 
-        model = models.Film(
+        model = models.Films(
             name=form.cleaned_data['name'],
             category=models.Category.objects.get(pk=form.cleaned_data['category']),
             release_date=form.cleaned_data['release_date'],
@@ -36,7 +36,7 @@ class AddView(View):
 
 class DeleteView(View):
     def get(self, request, pk):
-        model = models.Film.objects.get(pk=pk)
+        model = models.Films.objects.get(pk=pk)
 
         return render(request, 'films/delete.html', context={'film': model})
 
@@ -44,7 +44,7 @@ class DeleteView(View):
         if not request.user.is_authenticated:
             return HttpResponseRedirect('/')
 
-        model = models.Film.objects.get(pk=pk)
+        model = models.Films.objects.get(pk=pk)
         model.delete()
         
         return HttpResponseRedirect('/')
@@ -52,7 +52,7 @@ class DeleteView(View):
 
 class EditView(View):
     def get(self, request, pk):
-        model = models.Film.objects.get(pk=pk)
+        model = models.Films.objects.get(pk=pk)
         form = forms.FilmForm(data={
             'name': model.name,
             'category': model.category.pk,
@@ -68,12 +68,12 @@ class EditView(View):
             return HttpResponseRedirect('/')
 
         form = forms.FilmForm(request.POST)
-        model = models.Film.objects.get(pk=pk)
+        model = models.Films.objects.get(pk=pk)
 
         if not form.is_valid():
             return self.get(request)
         
-        model_save = models.Film(
+        model_save = models.Films(
             pk=model.pk,
             name=form.cleaned_data['name'],
             category=models.Category.objects.get(pk=form.cleaned_data['category']),
