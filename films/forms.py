@@ -12,4 +12,3 @@ class FilmForm(forms.Form):
     release_date = forms.DateField(label='Дата выпуска')
     actors = forms.CharField(label='Актёры')
     show_date = forms.CharField(label='Дата показа')
-    

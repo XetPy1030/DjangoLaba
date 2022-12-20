@@ -14,6 +14,9 @@ class AddView(View):
         return render(request, 'films/add.html', context={'form': forms.FilmForm})
 
     def post(self, request):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/')
+        
         form = forms.FilmForm(request.POST)
 
         if not form.is_valid():
@@ -38,6 +41,9 @@ class DeleteView(View):
         return render(request, 'films/delete.html', context={'film': model})
 
     def post(self, request, pk):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/')
+
         model = models.Film.objects.get(pk=pk)
         model.delete()
         
@@ -58,6 +64,9 @@ class EditView(View):
         return render(request, 'films/edit.html', context={'form': form})
 
     def post(self, request, pk):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/')
+
         form = forms.FilmForm(request.POST)
         model = models.Film.objects.get(pk=pk)
 

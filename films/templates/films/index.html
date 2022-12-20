@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,9 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{% static 'films/css/style.css' %}">
 </head>
 <body>
-    <a href="add/">Добавить</a>
+    <style>
+        body {
+            background-image: url("{% static 'films/imgs/test.jpg' %}");
+            background-repeat: no-repeat;
+        }
+    </style>
+    {% if user.is_authenticated %}
+        <a href="add/">Добавить</a>
+    {% endif %}
     {% for film in films %}
     <div class="film">
         <div class="film__info">
@@ -17,17 +27,13 @@
             {{ film.actors }}
             {{ film.show_date }}
         </div>
-        <div class="film__links">
-            <a href="edit/{{ film.pk }}/">Редактировать</a>
-            <a href="delete/{{ film.pk }}/">Удалить</a>
-        </div>
+        {% if user.is_authenticated %}
+            <div class="film__links">
+                <a href="edit/{{ film.pk }}/">Редактировать</a>
+                <a href="delete/{{ film.pk }}/">Удалить</a>
+            </div>
+        {% endif %}
     </div>
     {% endfor %}
-
-    <style>
-        body {
-            background-color: white;
-        }
-    </style>
 </body>
 </html>
