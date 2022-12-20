@@ -13,6 +13,7 @@
         body {
             background-image: url("{% static 'films/imgs/test.jpg' %}");
             background-repeat: no-repeat;
+            background-size: cover;
         }
     </style>
     {% if user.is_authenticated %}
@@ -22,10 +23,10 @@
     <div class="film">
         <div class="film__info">
             <h2>{{ film.name }}</h2>
-            {{ film.category }}
-            {{ film.release_date }}
-            {{ film.actors }}
-            {{ film.show_date }}
+            <p>{{ film.category }}</p>
+            <p>{{ film.release_date }}</p>
+            <p>{{ film.actors }}</p>
+            <p>{{ film.show_date }}</p>
         </div>
         {% if user.is_authenticated %}
             <div class="film__links">
